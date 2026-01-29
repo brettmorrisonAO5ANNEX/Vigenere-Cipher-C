@@ -11,30 +11,25 @@ int *map_to_int(char *message, int len);
 int char_to_int(char input);
 char *map_to_char(int *message, int len);
 int *cipher(int *message, int message_len, int *key, int key_len, int mode);
+void vigenere(int mode);
 
 int main() {
-    //get raw message and key
-    char *message = read_input(0);
-    char *key = read_input(1);
-    //lengths not including '\n
-    int message_len = strlen(message) - 1;
-    int key_len = strlen(key) - 1;
+    int cipher_mode;
+    printf("type 0 to encrypt, 1 to decrypt: ");
+    scanf("%d", &cipher_mode);
 
-    //map message and key -> [0-25]
-    int *mapped_message = map_to_int(message, message_len);
-    int *mapped_key = map_to_int(key, key_len);
+    //flush newline from stdin buffer
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
 
-    //encrypt
-    int *encrypted_map = cipher(mapped_message, message_len, mapped_key, key_len, 0);
-    char *encrypted_message = map_to_char(encrypted_map, message_len);
-    printf("%s", encrypted_message);
-    
-    //free resources
-    free(message);
-    free(mapped_message);
-    free(mapped_key);
-    free(encrypted_map);
-    free(encrypted_message);
+    if (cipher_mode != 0 && cipher_mode != 1) {
+        printf("invalid mode\n");
+        return 1;
+    } 
+    else {
+        vigenere(cipher_mode);
+    }
+
     return 0;
 };
 
@@ -45,7 +40,8 @@ char *read_input(int mode) {
 
     if (mode == 0) {
         printf("enter message: ");
-    } else {
+    } 
+    else if (mode == 1) {
         printf("enter key: ");
     }
 
@@ -127,7 +123,7 @@ int *cipher(int *message, int message_len, int *key, int key_len, int mode) {
             processed_message[i] = (t + k) % 26;
         } 
         //decryption
-        else {
+        else if (mode == 1) {
             processed_message[i] = (t - k) % 26;
         }
     }
@@ -135,3 +131,29 @@ int *cipher(int *message, int message_len, int *key, int key_len, int mode) {
     return processed_message;
 };
 
+void vigenere(int mode) {
+    //get raw message and key
+    char *message = read_input(0);
+    char *key = read_input(1);
+
+    //lengths not including '\n
+    int message_len = strlen(message) - 1;
+    int key_len = strlen(key) - 1;
+
+    //map message and key -> [0-25]
+    int *mapped_message = map_to_int(message, message_len);
+    int *mapped_key = map_to_int(key, key_len);
+
+    //process
+    int *processed_map = cipher(mapped_message, message_len, mapped_key, key_len, mode);
+    char *processed_message = map_to_char(processed_map, message_len);
+    printf("result: %s", processed_message);
+    
+    //free resources
+    free(message);
+    free(key);
+    free(mapped_message);
+    free(mapped_key);
+    free(processed_map);
+    free(processed_message);
+};

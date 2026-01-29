@@ -1,15 +1,14 @@
 ---
 triple:          'x86_64-apple-darwin'
-binary-path:     '/Users/brettmorrison/Desktop/Vigenere Cipher/app'
+binary-path:     app
 relocations:
-  - { offset: 0x26, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x100000B90, symSize: 0x70 }
-  - { offset: 0x3F, size: 0x8, addend: 0x0, symName: _test_message, symObjAddr: 0x3B0, symBinAddr: 0x100002000, symSize: 0x0 }
-  - { offset: 0x6E, size: 0x8, addend: 0x0, symName: _test_key, symObjAddr: 0x3B6, symBinAddr: 0x100002006, symSize: 0x0 }
-  - { offset: 0x8F, size: 0x8, addend: 0x0, symName: _alphabet, symObjAddr: 0x3C0, symBinAddr: 0x100002010, symSize: 0x0 }
-  - { offset: 0xB5, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x100000B90, symSize: 0x70 }
-  - { offset: 0x107, size: 0x8, addend: 0x0, symName: _map_to_int, symObjAddr: 0x70, symBinAddr: 0x100000C00, symSize: 0xE0 }
-  - { offset: 0x183, size: 0x8, addend: 0x0, symName: _cipher, symObjAddr: 0x150, symBinAddr: 0x100000CE0, symSize: 0xD0 }
-  - { offset: 0x229, size: 0x8, addend: 0x0, symName: _map_to_char, symObjAddr: 0x220, symBinAddr: 0x100000DB0, symSize: 0x80 }
-  - { offset: 0x297, size: 0x8, addend: 0x0, symName: _read_input, symObjAddr: 0x2A0, symBinAddr: 0x100000E30, symSize: 0xA0 }
-  - { offset: 0x2E9, size: 0x8, addend: 0x0, symName: _char_to_int, symObjAddr: 0x340, symBinAddr: 0x100000ED0, symSize: 0x64 }
+  - { offset: 0x26, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x100000A30, symSize: 0x80 }
+  - { offset: 0x3F, size: 0x8, addend: 0x0, symName: _alphabet, symObjAddr: 0x4D0, symBinAddr: 0x100002000, symSize: 0x0 }
+  - { offset: 0x73, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x0, symBinAddr: 0x100000A30, symSize: 0x80 }
+  - { offset: 0x9B, size: 0x8, addend: 0x0, symName: _vigenere, symObjAddr: 0x80, symBinAddr: 0x100000AB0, symSize: 0xE0 }
+  - { offset: 0x12F, size: 0x8, addend: 0x0, symName: _read_input, symObjAddr: 0x160, symBinAddr: 0x100000B90, symSize: 0xB0 }
+  - { offset: 0x181, size: 0x8, addend: 0x0, symName: _map_to_int, symObjAddr: 0x210, symBinAddr: 0x100000C40, symSize: 0xD0 }
+  - { offset: 0x1FD, size: 0x8, addend: 0x0, symName: _cipher, symObjAddr: 0x2E0, symBinAddr: 0x100000D10, symSize: 0xE0 }
+  - { offset: 0x2A3, size: 0x8, addend: 0x0, symName: _map_to_char, symObjAddr: 0x3C0, symBinAddr: 0x100000DF0, symSize: 0xA0 }
+  - { offset: 0x311, size: 0x8, addend: 0x0, symName: _char_to_int, symObjAddr: 0x460, symBinAddr: 0x100000E90, symSize: 0x64 }
 ...
