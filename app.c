@@ -7,30 +7,34 @@ char alphabet[26] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
                      'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 
 char *read_input(int mode);
-int *map_to_int(char *message);
+int *map_to_int(char *message, int len);
 int char_to_int(char input);
-char *map_to_char(int *message);
-int *cipher(int *message, int *key, int mode);
+char *map_to_char(int *message, int len);
+int *cipher(int *message, int message_len, int *key, int key_len, int mode);
 
 int main() {
     //get raw message and key
     char *message = read_input(0);
     char *key = read_input(1);
+    //lengths not including '\n
+    int message_len = strlen(message) - 1;
+    int key_len = strlen(key) - 1;
 
     //map message and key -> [0-25]
-    int *mapped_message = map_to_int(message);
-    int *mapped_key = map_to_int(key);
+    int *mapped_message = map_to_int(message, message_len);
+    int *mapped_key = map_to_int(key, key_len);
 
     //encrypt
-    int *encrypted_map = cipher(mapped_message, mapped_key, 0);
-    char *encrypted_message = map_to_char(encrypted_map);
-
+    int *encrypted_map = cipher(mapped_message, message_len, mapped_key, key_len, 0);
+    char *encrypted_message = map_to_char(encrypted_map, message_len);
     printf("%s", encrypted_message);
     
-
     //free resources
     free(message);
     free(mapped_message);
+    free(mapped_key);
+    free(encrypted_map);
+    free(encrypted_message);
     return 0;
 };
 
@@ -55,8 +59,7 @@ char *read_input(int mode) {
     return message;
 }
 
-int *map_to_int(char *message) {
-    size_t len = strlen(message);
+int *map_to_int(char *message, int len) {
     char c;
     int val;
     int *mapped_message = (int*)malloc(len * sizeof(int));
@@ -93,23 +96,24 @@ int char_to_int(char input) {
     return -1;
 };
 
-char *map_to_char(int *message) {
-    int len = sizeof(message);
+char *map_to_char(int *message, int len) {
     int val;
-    char *mapped_to_char = (char*)malloc(len * sizeof(char));
+    // + 2 for null terminator and newline
+    char *mapped_to_char = (char*)malloc((len + 2) * sizeof(char)); 
 
     for (int i = 0; i < len; i++) {
         val = message[i];
         mapped_to_char[i] = alphabet[val];
     }
+    // null terminate the string
+    mapped_to_char[len] = '\n'; 
+    mapped_to_char[len + 1] = '\0';
 
     return mapped_to_char;
 }
 
 //Vigenere Cipher
-int *cipher(int *message, int *key, int mode) {
-    int message_len = sizeof(message);
-    int key_len = sizeof(key);
+int *cipher(int *message, int message_len, int *key, int key_len, int mode) {
     int t;
     int k;
     int* processed_message = (int*)malloc(message_len * sizeof(int));
