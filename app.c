@@ -124,7 +124,12 @@ int *cipher(int *message, int message_len, int *key, int key_len, int mode) {
         } 
         //decryption
         else if (mode == 1) {
-            processed_message[i] = (t - k) % 26;
+            int temp = (t - k) % 26;
+            //in-case of negative modulus
+            if (temp < 0) {
+                temp += 26;
+            }
+            processed_message[i] = temp;
         }
     }
 
